@@ -1,0 +1,28 @@
+---
+title: "What Actually Makes a Component Library Reusable"
+slug: "reusable-component-libraries"
+excerpt: "Reusable isn't the same as generic. Notes from building shared UI libraries inside two different enterprise codebases."
+date: "2026-02-14"
+tags: ["React", "Architecture", "Design Systems"]
+---
+
+Every enterprise codebase I've worked in eventually grows the same problem: three tables, four filter bars, and five slightly different date pickers, all doing roughly the same job. The instinct is to declare a "component library" project and start extracting. That instinct is right, but the extraction itself is where most of these efforts quietly fail.
+
+## Reusable is not the same as generic
+
+The first version of a shared component is usually too specific — copied straight out of the screen it came from, props named after that screen's data. The second instinct overcorrects: strip out every assumption, accept a dozen props, and let every consumer configure everything. That produces a component nobody enjoys using, because now every call site needs to rediscover the right combination of props just to render a basic table.
+
+The components that actually got adopted on my teams had a narrower goal: cover the 80% case with almost no configuration, and expose a small number of intentional extension points — a render prop for a custom cell, a slot for actions — for the rest. Anything outside that gets its own component, not another flag on the existing one.
+
+## Ownership matters more than the code
+
+A library only stays reusable if someone is accountable for it. When I built out a shared UI layer for a large internal platform, the biggest unlock wasn't the components themselves — it was setting up code review norms so that new patterns went through the library owners before they got duplicated elsewhere. That's what took code duplication down in practice, not just on paper.
+
+## A rough checklist
+
+- Extract only after you've seen the same pattern built three times, not two.
+- Name props after what the consumer is trying to do, not after the internal implementation.
+- Keep a short, boring list of supported use cases, and say no to the rest explicitly.
+- Put someone's name on the library. "Shared" without an owner tends to drift.
+
+None of this is novel. It's just easy to skip under deadline pressure, and the cost shows up months later as duplicated, drifting code across the app.

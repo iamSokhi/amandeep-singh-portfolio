@@ -1,0 +1,41 @@
+---
+title: "Non-Financial Risk Assessment Platform"
+slug: "nfrac-risk-platform"
+summary: "Architected the frontend for an internal risk-assessment platform used by 1,000+ employees, cutting load times and defect rates while the workflows underneath kept growing."
+company: "Morgan Stanley (via Wissen Technologies)"
+role: "Lead Front End Developer"
+period: "Jan 2025 — Present"
+stack: ["React", "TypeScript", "Redux Toolkit", "Redux Saga", "Playwright", "Jest"]
+metrics:
+  - label: "Faster app performance"
+    value: "40%"
+  - label: "Less code duplication"
+    value: "30%"
+  - label: "Test coverage"
+    value: "50% → 85%"
+  - label: "Internal users"
+    value: "1,000+"
+featured: true
+coverEyebrow: "01 / Financial Risk Platform"
+---
+
+## The problem
+
+A large internal Non-Financial Risk Assessment platform (NFRAC/iNFRA) had grown organically for years. Workflows were complex, screens were duplicated across teams, and every new feature risked slowing the app down further for the 1,000+ people who relied on it daily.
+
+## What I built
+
+I led the frontend architecture rebuild, moving the application onto a consistent React and TypeScript foundation with Redux Toolkit and Redux Saga managing the more complex, multi-step workflows. Rather than let every team keep building its own version of the same table, form, and filter components, I extracted a shared internal UI library that teams could pull from directly.
+
+- Replaced ad-hoc state handling with a predictable Redux Toolkit + Saga pattern for async, multi-step workflows.
+- Built a shared component library covering the platform's most repeated patterns — data grids, filters, and form controls — cutting duplicated code by 30%.
+- Introduced code splitting, lazy loading, and targeted memoization to bring performance up by 40% on the heaviest screens.
+- Wired in real-time data streams alongside the existing REST integrations, cutting data latency by 25%.
+
+## Making it hold together
+
+Performance gains only matter if they survive the next release. I raised automated test coverage from roughly 50% to 85% using Jest, React Testing Library, Playwright, and Cucumber, and put code review practices in place across a team of 4–6 developers — which brought production defects down by 20%.
+
+## Outcome
+
+The platform now supports significantly more concurrent workflows without the performance regressions that used to follow every release, and the shared component library has become the default starting point for new screens across the team.

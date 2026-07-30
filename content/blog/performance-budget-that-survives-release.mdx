@@ -1,0 +1,30 @@
+---
+title: "A Performance Budget That Survives the Next Release"
+slug: "performance-budget-that-survives-release"
+excerpt: "Code splitting and lazy loading buy you a fast app on launch day. Here's what keeps it fast six months later."
+date: "2026-04-02"
+tags: ["Performance", "React", "TypeScript"]
+---
+
+Performance work has a predictable arc on most teams: someone profiles the app, finds the obvious wins — an unsplit bundle, a component re-rendering on every keystroke, a waterfall of sequential API calls — and fixes them. The app gets noticeably faster. Then, six months later, it's slow again, and nobody can point to a single change that caused it.
+
+## The wins are rarely the hard part
+
+Code splitting routes, lazy loading below-the-fold content, memoizing expensive computations — these are well understood and, on a large existing app, usually deliver real, measurable gains. On one platform I worked on, this combination alone improved load performance by 40%. That part isn't the hard part.
+
+## What actually erodes performance over time
+
+The regression usually isn't one big mistake. It's a dozen small ones:
+
+- A new dependency pulled into a shared bundle instead of a route-specific one.
+- A `useEffect` that re-fetches slightly more than it needs to.
+- A component that used to be memoized losing that memoization during a refactor.
+- A new field added to a shared table that quietly triggers a re-render of every row.
+
+None of these show up in a code review unless someone is specifically looking for them, and by the time they're visible in a profiler, they've usually been in production for weeks.
+
+## What held the line
+
+The thing that actually kept performance from drifting back down wasn't a single tool — it was making the budget visible where the team already worked: performance checks in CI, real user metrics reviewed alongside test coverage, and a habit of profiling before merging anything that touched a high-traffic screen. Combined with an increase in automated test coverage, this caught most regressions before they shipped rather than after.
+
+Performance work is easy to treat as a one-time project. Treating it as an ongoing budget — something a team defends every sprint, not just after a slowdown gets noticed — is what actually makes the gains last.
